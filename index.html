@@ -4,471 +4,173 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nikhilan – Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --navy:   #111111;
-      --navy2:  #1a1a2e;
-      --gold:   #c9a84c;
-      --gold-l: #f0d080;
-      --cream:  #181818;
-      --white:  #1f1f1f;
-      --gray:   #9ca3af;
-      --light:  #2a2a2a;
+      --bg: #0a0a0f; --surface: #13131f; --card: #1a1a2e; --border: #2a2a4a;
+      --purple: #7c3aed; --purple-l: #a855f7; --pink: #ec4899;
+      --cyan: #06b6d4; --green: #10b981; --text: #f1f5f9; --muted: #94a3b8;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: #e5e5e5;
-    }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      padding: 0 40px;
-      height: 60px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,15,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; padding: 0 20px; gap: 12px;
     }
-
     .nav-brand {
-      font-family: 'Playfair Display', serif;
-      color: var(--gold-l);
-      font-size: 20px;
-      letter-spacing: 0.5px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+      background: linear-gradient(90deg, var(--purple-l), var(--pink), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      white-space: nowrap; flex-shrink: 0;
     }
-
-    .nav-links { display: flex; gap: 6px; }
-
+    .nav-links { display: flex; align-items: center; gap: 3px; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
     .nav-links a {
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 4px;
-      transition: background 0.2s, color 0.2s;
-      letter-spacing: 0.3px;
+      color: var(--muted); text-decoration: none; font-size: 11.5px; font-weight: 600;
+      padding: 6px 10px; border-radius: 8px; border: 1px solid transparent;
+      transition: all 0.2s; white-space: nowrap; cursor: pointer;
     }
+    .nav-links a:hover { color: var(--text); background: rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.4); }
+    .nav-links a.active { background: linear-gradient(90deg,rgba(124,58,237,0.25),rgba(236,72,153,0.25)); border-color: rgba(124,58,237,0.5); color: #a78bfa; }
+    @media(max-width:640px){ nav{padding:0 8px;} .nav-brand{font-size:12px;} .nav-links a{font-size:10px;padding:5px 6px;} section{padding:60px 16px;} }
 
-    .nav-links a:hover {
-      background: rgba(201,168,76,0.2);
-      color: var(--gold-l);
-    }
-
-    /* ── HERO ── */
+    /* HERO */
     .hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1e3a6e 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 40px 60px;
-      position: relative;
-      overflow: hidden;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 80px 24px 60px; position: relative; overflow: hidden; text-align: center;
     }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -100px; right: -100px;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: -80px;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 760px;
-      text-align: center;
-      animation: heroFade 0.9s ease both;
-    }
-
-    @keyframes heroFade {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; animation: blobMove 8s ease-in-out infinite alternate; pointer-events: none; }
+    .blob-1 { width:400px;height:400px;background:var(--purple);top:-100px;left:-100px;animation-delay:0s; }
+    .blob-2 { width:350px;height:350px;background:var(--pink);top:50%;right:-100px;animation-delay:2s; }
+    .blob-3 { width:300px;height:300px;background:var(--cyan);bottom:-80px;left:30%;animation-delay:4s; }
+    @keyframes blobMove { from{transform:translate(0,0) scale(1);} to{transform:translate(30px,20px) scale(1.1);} }
+    .hero-inner { position:relative;z-index:2;max-width:700px;animation:fadeUp 0.8s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(40px);} to{opacity:1;transform:translateY(0);} }
     .hero-avatar {
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-l) 100%);
-      margin: 0 auto 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 44px;
-      color: var(--navy);
-      font-weight: 700;
-      box-shadow: 0 0 0 4px rgba(201,168,76,0.3), 0 12px 40px rgba(0,0,0,0.3);
+      width:130px;height:130px;border-radius:50%;margin:0 auto 24px;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Space Grotesk',sans-serif;font-size:50px;font-weight:700;color:#fff;
+      background:linear-gradient(135deg,var(--purple) 0%,var(--pink) 50%,var(--cyan) 100%);
+      box-shadow:0 0 40px rgba(124,58,237,0.5),0 0 80px rgba(236,72,153,0.3);
+      animation:avatarPulse 3s ease-in-out infinite;
     }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 6vw, 58px);
-      color: #ffffff;
-      margin-bottom: 18px;
-      line-height: 1.1;
+    @keyframes avatarPulse {
+      0%,100%{box-shadow:0 0 40px rgba(124,58,237,0.5),0 0 80px rgba(236,72,153,0.3);}
+      50%{box-shadow:0 0 60px rgba(124,58,237,0.8),0 0 100px rgba(236,72,153,0.5);}
     }
-
+    .hero h1 { font-family:'Space Grotesk',sans-serif;font-size:clamp(42px,8vw,72px);font-weight:800;color:#fff;margin-bottom:14px;line-height:1;letter-spacing:-1px; }
     .hero-subtitle {
-      font-size: 16px;
-      color: var(--gold-l);
-      font-weight: 500;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
+      font-size:15px;font-weight:500;letter-spacing:3px;text-transform:uppercase;
+      background:linear-gradient(90deg,var(--purple-l),var(--pink),var(--cyan));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
 
-    .hero p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.72);
-      line-height: 1.8;
-      max-width: 580px;
-      margin: 0 auto 40px;
-    }
+    /* SECTIONS */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 920px; margin: 0 auto; }
+    .section-label { font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--purple-l);margin-bottom:10px; }
+    .section-title { font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:700;color:var(--text);margin-bottom:8px; }
+    .section-line { width:60px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--purple),var(--pink));margin-bottom:40px; }
 
-    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    /* PROFILE */
+    #profile { background: var(--surface); }
+    .profile-grid { display:grid;grid-template-columns:1fr 1fr;gap:28px; }
+    @media(max-width:640px){ .profile-grid{grid-template-columns:1fr;} }
+    .info-card { background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:transform 0.2s,border-color 0.2s; }
+    .info-card:hover { transform:translateY(-3px);border-color:var(--purple); }
+    .info-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan)); }
+    .info-card h3 { font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:20px;display:flex;align-items:center;gap:8px; }
+    .info-row { display:flex;margin-bottom:12px;font-size:13px;gap:10px;align-items:flex-start; }
+    .info-row .label { color:var(--muted);min-width:115px;font-weight:500; }
+    .info-row .value { color:var(--text); }
+    .skills-list { display:flex;flex-wrap:wrap;gap:8px;margin-top:8px; }
+    .skill-tag { font-size:12px;padding:5px 14px;border-radius:20px;font-weight:600;border:1px solid; }
+    .skill-tag:nth-child(1){background:rgba(124,58,237,0.15);color:#a78bfa;border-color:rgba(124,58,237,0.4);}
+    .skill-tag:nth-child(2){background:rgba(236,72,153,0.15);color:#f472b6;border-color:rgba(236,72,153,0.4);}
+    .skill-tag:nth-child(3){background:rgba(6,182,212,0.15);color:#22d3ee;border-color:rgba(6,182,212,0.4);}
+    .skill-tag:nth-child(4){background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.4);}
+    .skill-tag:nth-child(5){background:rgba(245,158,11,0.15);color:#fbbf24;border-color:rgba(245,158,11,0.4);}
+    .skill-tag:nth-child(6){background:rgba(239,68,68,0.15);color:#f87171;border-color:rgba(239,68,68,0.4);}
+    .skill-tag:nth-child(7){background:rgba(124,58,237,0.15);color:#a78bfa;border-color:rgba(124,58,237,0.4);}
+    .skill-tag:nth-child(8){background:rgba(236,72,153,0.15);color:#f472b6;border-color:rgba(236,72,153,0.4);}
 
-    .btn-gold {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 12px 28px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background 0.2s, transform 0.15s;
-      letter-spacing: 0.3px;
-    }
+    /* PROJECTS */
+    #projects { background: var(--bg); }
+    .projects-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px; }
+    .project-card { background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s; }
+    .project-card:hover { transform:translateY(-6px);box-shadow:0 20px 60px rgba(124,58,237,0.2);border-color:var(--purple); }
+    .project-header { padding:24px 24px 0;display:flex;align-items:center;gap:14px;margin-bottom:14px; }
+    .project-icon { width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0; }
+    .icon-purple{background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);}
+    .icon-cyan{background:rgba(6,182,212,0.2);border:1px solid rgba(6,182,212,0.4);}
+    .icon-green{background:rgba(16,185,129,0.2);border:1px solid rgba(16,185,129,0.4);}
+    .project-card h3 { font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);line-height:1.3; }
+    .project-body { padding:0 24px 24px; }
+    .project-card p { font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:16px; }
+    .project-divider { height:1px;background:var(--border);margin-bottom:14px; }
+    .project-tags { display:flex;flex-wrap:wrap;gap:6px; }
+    .p-tag { font-size:11px;padding:3px 10px;border-radius:6px;font-weight:600;background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid var(--border); }
 
-    .btn-gold:hover { background: var(--gold-l); transform: translateY(-2px); }
+    /* ACADEMICS */
+    #academics { background: var(--surface); }
+    .timeline { position:relative;padding-left:40px; }
+    .timeline::before { content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--purple),var(--pink),var(--cyan));border-radius:2px; }
+    .tl-item { position:relative;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;transition:border-color 0.2s,transform 0.2s; }
+    .tl-item:hover { border-color:var(--purple);transform:translateX(4px); }
+    .tl-item::before { content:'';position:absolute;left:-35px;top:24px;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));border:3px solid var(--bg);box-shadow:0 0 12px rgba(124,58,237,0.6); }
+    .tl-year { font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;background:linear-gradient(90deg,var(--purple-l),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .tl-title { font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px; }
+    .tl-sub { font-size:13px;color:var(--muted);margin-bottom:12px; }
+    .tl-grade { display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;background:linear-gradient(90deg,var(--purple),var(--pink));color:#fff; }
 
-    .btn-outline {
-      border: 1px solid rgba(201,168,76,0.5);
-      color: var(--gold-l);
-      padding: 12px 28px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-outline:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
-
-    /* ── SECTIONS ── */
-    section { padding: 80px 40px; }
-
-    .section-inner { max-width: 900px; margin: 0 auto; }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 4vw, 40px);
-      color: #e5e5e5;
-      margin-bottom: 14px;
-    }
-
-    .section-line {
-      width: 50px;
-      height: 3px;
-      background: var(--gold);
-      border-radius: 2px;
-      margin-bottom: 40px;
-    }
-
-    /* ── PROFILE ── */
-    #profile { background: var(--white); }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-
-    @media (max-width: 640px) {
-      .profile-grid { grid-template-columns: 1fr; }
-      nav { padding: 0 16px; }
-      .nav-links a { padding: 6px 8px; font-size: 12px; }
-      section { padding: 60px 20px; }
-      .hero { padding: 80px 20px 60px; }
-    }
-
-    .info-card {
-      background: var(--cream);
-      border: 1px solid var(--light);
-      border-radius: 8px;
-      padding: 28px;
-    }
-
-    .info-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      color: #e5e5e5;
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--gold);
-      display: inline-block;
-    }
-
-    .info-row {
-      display: flex;
-      margin-bottom: 12px;
-      font-size: 14px;
-      gap: 10px;
-    }
-
-    .info-row .label { color: var(--gray); min-width: 110px; font-weight: 500; }
-    .info-row .value { color: #e5e5e5; }
-
-    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-
-    .skill-tag {
-      background: var(--navy);
-      color: var(--gold-l);
-      font-size: 12px;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-
-    /* ── PROJECTS ── */
-    #projects { background: var(--cream); }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-    }
-
-    .project-card {
-      background: var(--white);
-      border: 1px solid var(--light);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 48px rgba(26,39,68,0.13);
-    }
-
-    .project-top {
-      height: 8px;
-      background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
-    }
-
-    .project-body { padding: 28px; }
-
-    .project-icon {
-      width: 48px; height: 48px;
-      background: var(--navy);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 18px;
-    }
-
-    .project-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      color: #e5e5e5;
-      margin-bottom: 12px;
-      line-height: 1.3;
-    }
-
-    .project-card p {
-      font-size: 13px;
-      color: var(--gray);
-      line-height: 1.75;
-      margin-bottom: 18px;
-    }
-
-    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-    .p-tag {
-      background: rgba(255,255,255,0.07);
-      color: #c9a84c;
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 3px;
-      font-weight: 500;
-    }
-
-    /* ── ACADEMICS ── */
-    #academics { background: var(--white); }
-
-    .timeline { position: relative; padding-left: 36px; }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 8px; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--gold), var(--navy));
-      border-radius: 2px;
-    }
-
-    .tl-item {
-      position: relative;
-      margin-bottom: 40px;
-    }
-
-    .tl-item::before {
-      content: '';
-      position: absolute;
-      left: -30px; top: 6px;
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: var(--gold);
-      border: 3px solid #181818;
-      box-shadow: 0 0 0 2px var(--gold);
-    }
-
-    .tl-year {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
-
-    .tl-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 19px;
-      color: #e5e5e5;
-      margin-bottom: 5px;
-    }
-
-    .tl-sub { font-size: 14px; color: var(--gray); margin-bottom: 8px; }
-
-    .tl-grade {
-      display: inline-block;
-      background: var(--navy);
-      color: var(--gold-l);
-      font-size: 12px;
-      padding: 4px 14px;
-      border-radius: 3px;
-      font-weight: 600;
-    }
-
-    /* ── ACHIEVEMENTS ── */
-    #achievements { background: var(--cream); }
-
-    .achieve-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-    }
-
-    .achieve-card {
-      background: var(--white);
-      border: 1px solid var(--light);
-      border-radius: 8px;
-      padding: 28px;
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .achieve-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-3px);
-    }
-
-    .achieve-icon {
-      font-size: 32px;
-      flex-shrink: 0;
-      line-height: 1;
-    }
-
-    .achieve-card h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      color: #e5e5e5;
-      margin-bottom: 8px;
-    }
-
-    .achieve-card p { font-size: 13px; color: var(--gray); line-height: 1.65; }
-
-    .cert-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--navy);
-      color: var(--gold-l);
-      font-size: 12px;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-weight: 500;
-      margin-top: 8px;
-      margin-right: 6px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,0.5);
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 13px;
-    }
-
-    footer span { color: var(--gold); }
+    /* ACHIEVEMENTS */
+    #achievements { background: var(--bg); }
+    .achieve-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px; }
+    .achieve-card { background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; }
+    .achieve-card:hover { transform:translateY(-4px);box-shadow:0 16px 48px rgba(124,58,237,0.2); }
+    .achieve-card:nth-child(1){border-top:3px solid var(--purple);} .achieve-card:nth-child(1):hover{border-color:var(--purple);}
+    .achieve-card:nth-child(2){border-top:3px solid var(--pink);}   .achieve-card:nth-child(2):hover{border-color:var(--pink);}
+    .achieve-card:nth-child(3){border-top:3px solid var(--cyan);}   .achieve-card:nth-child(3):hover{border-color:var(--cyan);}
+    .achieve-card:nth-child(4){border-top:3px solid var(--green);}  .achieve-card:nth-child(4):hover{border-color:var(--green);}
+    .achieve-icon { font-size:36px;margin-bottom:14px;display:block; }
+    .achieve-card h4 { font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px; }
+    .achieve-card p { font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:14px; }
+    .cert-badge { display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 12px;border-radius:20px;font-weight:700;margin-right:6px; }
+    .badge-purple{background:rgba(124,58,237,0.2);color:#a78bfa;border:1px solid rgba(124,58,237,0.4);}
+    .badge-pink{background:rgba(236,72,153,0.2);color:#f472b6;border:1px solid rgba(236,72,153,0.4);}
+    .badge-cyan{background:rgba(6,182,212,0.2);color:#22d3ee;border:1px solid rgba(6,182,212,0.4);}
+    .badge-green{background:rgba(16,185,129,0.2);color:#34d399;border:1px solid rgba(16,185,129,0.4);}
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-brand">Profile</div>
-  <div class="nav-links"></div>
+  <div class="nav-brand">Nikhilan</div>
+  <div class="nav-links">
+    <a href="#profile" class="active">Student Profile</a>
+    <a href="#skills">Technical Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#academics">Academic Details</a>
+    <a href="#achievements">Achievements</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
   <div class="hero-inner">
     <div class="hero-avatar">N</div>
     <h1>Nikhilan</h1>
     <p class="hero-subtitle">Computer Science &amp; Engineering · 2nd Year</p>
-
   </div>
 </section>
 
@@ -480,20 +182,20 @@
     <div class="section-line"></div>
     <div class="profile-grid">
       <div class="info-card">
-        <h3>Personal Info</h3>
+        <h3><span>👤</span> Personal Info</h3>
         <div class="info-row"><span class="label">Full Name</span><span class="value">Nikhilan</span></div>
         <div class="info-row"><span class="label">Degree</span><span class="value">B.Tech – CSE</span></div>
         <div class="info-row"><span class="label">University</span><span class="value">SRM Institute of Science and Technology</span></div>
         <div class="info-row"><span class="label">Year</span><span class="value">2nd Year (2024 – 2028)</span></div>
-        <div class="info-row"><span class="label">CGPA</span><span class="value">8.6 / 10.0</span></div>
+        <div class="info-row"><span class="label">CGPA</span><span class="value">8.5 / 10.0</span></div>
         <div class="info-row"><span class="label">Location</span><span class="value">Trichy, India</span></div>
         <div class="info-row"><span class="label">Reg. Number</span><span class="value">RA2411003050192</span></div>
-        <div class="info-row"><span class="label">Email</span><span class="value"><a href="mailto:na7712@srmist.edu.in" style="color:var(--gold-l);text-decoration:none;">na7712@srmist.edu.in</a></span></div>
-        <div class="info-row"><span class="label">GitHub</span><span class="value"><a href="https://github.com/nikhilanmrprince" target="_blank" style="color:var(--gold-l);text-decoration:none;">github.com/nikhilanmrprince</a></span></div>
+        <div class="info-row"><span class="label">Email</span><span class="value"><a href="mailto:na7712@srmist.edu.in" style="color:#a78bfa;text-decoration:none;">na7712@srmist.edu.in</a></span></div>
+        <div class="info-row"><span class="label">GitHub</span><span class="value"><a href="https://github.com/nikhilanmrprince" target="_blank" style="color:#22d3ee;text-decoration:none;">github.com/nikhilanmrprince</a></span></div>
       </div>
-      <div class="info-card">
-        <h3>Technical Skills</h3>
-        <p style="font-size:13px;color:#6b7280;margin-bottom:14px;">Languages &amp; Technologies I work with</p>
+      <div class="info-card" id="skills">
+        <h3><span>⚙️</span> Technical Skills</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Languages &amp; Technologies I work with</p>
         <div class="skills-list">
           <span class="skill-tag">Python</span>
           <span class="skill-tag">Java</span>
@@ -516,17 +218,14 @@
     <h2 class="section-title">Projects</h2>
     <div class="section-line"></div>
     <div class="projects-grid">
-
       <div class="project-card">
-        <div class="project-top"></div>
-        <div class="project-body">
-          <div class="project-icon">⚡</div>
+        <div class="project-header">
+          <div class="project-icon icon-purple">⚡</div>
           <h3>EV Dual Battery Switching System</h3>
-          <p>
-            Designed and implemented an intelligent dual battery switching system for electric vehicles
-            that automatically manages power distribution between two battery units to maximize range,
-            efficiency, and battery lifespan.
-          </p>
+        </div>
+        <div class="project-body">
+          <p>Designed an intelligent dual battery switching system for electric vehicles that automatically manages power distribution between two battery units to maximize range, efficiency, and battery lifespan.</p>
+          <div class="project-divider"></div>
           <div class="project-tags">
             <span class="p-tag">Circuit Design</span>
             <span class="p-tag">MATLAB</span>
@@ -534,17 +233,14 @@
           </div>
         </div>
       </div>
-
       <div class="project-card">
-        <div class="project-top"></div>
-        <div class="project-body">
-          <div class="project-icon">☀️</div>
+        <div class="project-header">
+          <div class="project-icon icon-cyan">☀️</div>
           <h3>Emergency Battery with Solar Power in EV</h3>
-          <p>
-            Developed an emergency backup power module for electric vehicles using solar energy harvesting.
-            The system activates automatically during critical battery levels, ensuring the vehicle
-            can reach the nearest charging station safely.
-          </p>
+        </div>
+        <div class="project-body">
+          <p>Developed an emergency backup power module for electric vehicles using solar energy harvesting. Activates automatically during critical battery levels, ensuring the vehicle can reach the nearest charging station.</p>
+          <div class="project-divider"></div>
           <div class="project-tags">
             <span class="p-tag">Solar Energy</span>
             <span class="p-tag">Power Electronics</span>
@@ -552,57 +248,51 @@
           </div>
         </div>
       </div>
-
       <div class="project-card">
-        <div class="project-top"></div>
-        <div class="project-body">
-          <div class="project-icon">📦</div>
+        <div class="project-header">
+          <div class="project-icon icon-green">📦</div>
           <h3>Inventory Shrinkage Detection System</h3>
-          <p>
-            Built a smart inventory monitoring system that tracks stock levels in real-time and
-            automatically alerts the admin whenever the stock falls below a predefined threshold.
-            Helps businesses prevent losses and manage supply chains efficiently.
-          </p>
+        </div>
+        <div class="project-body">
+          <p>Built a smart inventory monitoring system that tracks stock levels in real-time and automatically alerts the admin whenever stock falls below a predefined threshold. Helps businesses prevent losses efficiently.</p>
+          <div class="project-divider"></div>
           <div class="project-tags">
             <span class="p-tag">Python</span>
             <span class="p-tag">SQL</span>
-            <span class="p-tag">Alerts / Notifications</span>
+            <span class="p-tag">Alerts</span>
             <span class="p-tag">Web Dashboard</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
+
+<!-- ACADEMIC DETAILS -->
 <section id="academics">
   <div class="section-inner">
     <p class="section-label">Education</p>
     <h2 class="section-title">Academic Details</h2>
     <div class="section-line"></div>
     <div class="timeline">
-
       <div class="tl-item">
-        <p class="tl-year">2024 – 2026</p>
+        <p class="tl-year">2024 – 2028</p>
         <p class="tl-title">B.Tech – Computer Science and Engineering</p>
         <p class="tl-sub">SRM Institute of Science and Technology, Chennai</p>
-        <span class="tl-grade">CGPA: 8.6 / 10.0</span>
+        <span class="tl-grade">CGPA: 8.5 / 10.0</span>
       </div>
-
       <div class="tl-item">
-        <p class="tl-year">2023 – 2024</p>
-        <p class="tl-title">Higher Secondary Education (12th Grade)</p>
-        <p class="tl-sub">CBSE Board</p>
-        <span class="tl-grade">Higher Secondary</span>
+        <p class="tl-year">Semester 1</p>
+        <p class="tl-title">First Semester</p>
+        <p class="tl-sub">SRM Institute of Science and Technology, Chennai</p>
+        <span class="tl-grade">SGPA: 8.5</span>
       </div>
-
       <div class="tl-item">
-        <p class="tl-year">2021 – 2022</p>
-        <p class="tl-title">Secondary Education (10th Grade)</p>
-        <p class="tl-sub">CBSE Board</p>
-        <span class="tl-grade">Secondary School</span>
+        <p class="tl-year">Semester 2</p>
+        <p class="tl-title">Second Semester</p>
+        <p class="tl-sub">SRM Institute of Science and Technology, Chennai</p>
+        <span class="tl-grade">SGPA: 8.2</span>
       </div>
-
     </div>
   </div>
 </section>
@@ -614,48 +304,28 @@
     <h2 class="section-title">Achievements</h2>
     <div class="section-line"></div>
     <div class="achieve-grid">
-
       <div class="achieve-card">
-        <div class="achieve-icon">📜</div>
-        <div>
-          <h4>EduSkills Certification</h4>
-          <p>Completed a professional certification through EduSkills, gaining industry-relevant skills and knowledge in core technology domains.</p>
-          <span class="cert-badge">✓ EduSkills</span>
-        </div>
+        <span class="achieve-icon">📜</span>
+        <h4>EduSkills Certification</h4>
+        <p>Completed a professional certification through EduSkills, gaining industry-relevant skills in core technology domains.</p>
+        <span class="cert-badge badge-purple">✓ EduSkills</span>
       </div>
-
       <div class="achieve-card">
-        <div class="achieve-icon">🎓</div>
-        <div>
-          <h4>Coursera Certification</h4>
-          <p>Completed an online certification course through Coursera, gaining verified skills in a specialized technology domain.</p>
-          <span class="cert-badge">✓ Coursera</span>
-        </div>
+        <span class="achieve-icon">🎓</span>
+        <h4>Coursera Certification</h4>
+        <p>Completed an online certification through Coursera, gaining verified skills in a specialized technology domain.</p>
+        <span class="cert-badge badge-pink">✓ Coursera</span>
       </div>
-
       <div class="achieve-card">
-        <div class="achieve-icon">🍃</div>
-        <div>
-          <h4>MongoDB Certification</h4>
-          <p>Earned the MongoDB certification demonstrating proficiency in NoSQL database design, querying, and data modeling for modern applications.</p>
-          <span class="cert-badge">✓ MongoDB</span>
-        </div>
+        <span class="achieve-icon">🍃</span>
+        <h4>MongoDB Certification</h4>
+        <p>Earned the MongoDB certification demonstrating proficiency in NoSQL database design, querying, and data modeling.</p>
+        <span class="cert-badge badge-cyan">✓ MongoDB</span>
       </div>
-
       <div class="achieve-card">
-        <div class="achieve-icon">🔋</div>
-        <div>
-          <h4>EV Innovation Project</h4>
-          <p>Built a functional dual battery switching and solar emergency power system for electric vehicles, showcasing applied engineering and sustainability focus.</p>
-          <span class="cert-badge">✓ Project</span>
-        </div>
+        <span class="achieve-icon">🔋</span>
+        <h4>EV Innovation Project</h4>
+        <p>Built a functional dual battery switching and solar emergency power system for EVs, showcasing applied engineering skills.</p>
+        <span class="cert-badge badge-green">✓ Project</span>
       </div>
-
     </div>
-  </div>
-</section>
-
-
-
-</body>
-</html>
